@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Data
 {
-    public class DatingRepository: IDatingRepository
+    public class DatingRepository : IDatingRepository
     {
-         private readonly DataContext _context;
+        private readonly DataContext _context;
         public DatingRepository(DataContext context)
         {
             _context = context;
@@ -24,16 +24,23 @@ namespace DatingApp.API.Data
         public async Task<User> GetUser(int id)
         {
             var user = await _context.Users.Include(p => p.Photos)
-            .FirstOrDefaultAsync(u => u.Id == id );
+            .FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
         }
-         public async Task<IEnumerable<User>> GetUsers(){
+        public async Task<Photo> GetPhoto(int id)
+        {
+            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
 
-              var users = await _context.Users
-              .Include(p => p.Photos).ToListAsync();
-              return users;
-         }
+            return photo;
+        }
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+
+            var users = await _context.Users
+            .Include(p => p.Photos).ToListAsync();
+            return users;
+        }
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;
