@@ -5,9 +5,10 @@ img.img-thumbnail {
 }
 
 .nv-file-over {
-  border: dotted 3px red;
+  border: dotted 3px rgb(0, 195, 255) !important;
 }
 
 input[type=file] {
   color: transparent;
 }
+
