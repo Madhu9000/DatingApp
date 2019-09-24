@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { JwtModule } from '@auth0/angular-jwt';
 import { FileUploadModule } from 'ng2-file-upload';
+import { TimeAgoPipe } from "time-ago-pipe";
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -49,7 +50,8 @@ export function tokengettter() {
     MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    TimeAgoPipe
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,7 @@ export function tokengettter() {
     FormsModule,
     ReactiveFormsModule,
     BsDropdownModule.forRoot(),
-     BsDatepickerModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     NgxGalleryModule,
@@ -66,10 +68,10 @@ export function tokengettter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokengettter,
-        whitelistedDomains: ['localhost:5000'],
-        blacklistedRoutes: ['localhost:5000/api/auth']
+        whitelistedDomains: ["localhost:5000"],
+        blacklistedRoutes: ["localhost:5000/api/auth"]
       }
-    }),
+    })
   ],
   providers: [
     AuthService,
@@ -82,8 +84,6 @@ export function tokengettter() {
     MemberEditResolver,
     PreventUnsavedChanges
   ],
-  bootstrap: [
-    AppComponent
-  ]
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
