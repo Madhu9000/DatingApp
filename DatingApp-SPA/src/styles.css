@@ -6,7 +6,8 @@
 @import '../node_modules/alertifyjs/build/css/alertify.min.css';
 @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
 
-body { background: #eceff1 !important; }
+body {background-color: #eceff1 !important;
+ }
 .tab-panel {
   border: 1px solid #ddd;
   padding: 10px;
