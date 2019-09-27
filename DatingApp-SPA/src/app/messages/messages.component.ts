@@ -7,14 +7,14 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
-  selector: "app-messages",
-  templateUrl: "./messages.component.html",
-  styleUrls: ["./messages.component.css"]
+  selector: 'app-messages',
+  templateUrl: './messages.component.html',
+  styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
   messages: Message[];
   pagination: Pagination;
-  messageContainer = "Unread";
+  messageContainer = 'Unread';
 
   constructor(
     private userService: UserService,
@@ -25,8 +25,10 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.messages = data["messages"].result;
-      this.pagination = data["messages"].pagination;
+      // tslint:disable-next-line:no-string-literal
+      this.messages = data['messages'].result;
+      // tslint:disable-next-line:no-string-literal
+      this.pagination = data['messages'].pagination;
     });
   }
   loadMessages() {
@@ -46,6 +48,16 @@ export class MessagesComponent implements OnInit {
           this.alertify.Error(error);
         }
       );
+  }
+  deleteMessage(id: number) {
+    this.alertify.confirm('Are you sure you want to delete this message?', () => {
+      this.userService.deleteMessage(id, this.authService.decodedToken.nameid).subscribe(() => {
+        this.messages.splice(this.messages.findIndex(m => m.id === id), 1);
+        this.alertify.Success('Message has been deleted');
+      }, error => {
+        this.alertify.Error('Failed to delete the message');
+      });
+    });
   }
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
